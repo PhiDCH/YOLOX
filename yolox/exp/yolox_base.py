@@ -39,9 +39,9 @@ class Exp(BaseExp):
         # dir of dataset images, if data_dir is None, this project will use `datasets` dir
         self.data_dir = None
         # name of annotation file for training
-        self.train_ann = "instances_train2017.json"
+        self.train_ann = "/home/phidch/Downloads/phi_ws/src/sordi-2022/src/data/SORDI/annotations/sordi-single-asserts-train.json"
         # name of annotation file for evaluation
-        self.val_ann = "instances_val2017.json"
+        self.val_ann = "/home/phidch/Downloads/phi_ws/src/sordi-2022/src/data/SORDI/annotations/sordi-single-asserts-val.json"
         # name of annotation file for testing
         self.test_ann = "instances_test2017.json"
 
@@ -88,7 +88,7 @@ class Exp(BaseExp):
         self.momentum = 0.9
         # log period in iter, for example,
         # if set to 1, user could see log every iteration.
-        self.print_interval = 1000
+        self.print_interval = 100
         # eval period in epoch, for example,
         # if set to 1, model will be evaluate after every epoch.
         self.eval_interval = 5
