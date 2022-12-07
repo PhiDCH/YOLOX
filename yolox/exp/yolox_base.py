@@ -39,11 +39,13 @@ class Exp(BaseExp):
         # dir of dataset images, if data_dir is None, this project will use `datasets` dir
         self.data_dir = None
         # name of annotation file for training
-        self.train_ann = "/home/phidch/Downloads/phi_ws/src/sordi-2022/src/data/SORDI/annotations/sordi-single-asserts-train.json"
-        # name of annotation file for evaluation
-        self.val_ann = "/home/phidch/Downloads/phi_ws/src/sordi-2022/src/data/SORDI/annotations/sordi-single-asserts-val.json"
+        self.train_ann = "/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/SORDI/annotations/sordi-non-single-asserts-train500.json"
+        self.val_ann = "/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/SORDI/annotations/sordi-non-single-asserts-val500.json"
+
+        # self.train_ann = "/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/SORDI/annotations/sordi-single-asserts-train100.json"
+        # self.val_ann = "/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/SORDI/annotations/sordi-single-asserts-val100.json"
         # name of annotation file for testing
-        self.test_ann = "instances_test2017.json"
+        self.test_ann = "/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/SORDI/annotations/sordi-non-single-asserts-train500.json"
 
         # --------------- transform config ----------------- #
         # prob of applying mosaic aug
@@ -69,7 +71,7 @@ class Exp(BaseExp):
         # epoch number used for warmup
         self.warmup_epochs = 5
         # max training epoch
-        self.max_epoch = 100
+        self.max_epoch = 300
         # minimum learning rate during warmup
         self.warmup_lr = 0
         self.min_lr_ratio = 0.05

@@ -60,7 +60,7 @@ def make_parser():
     parser.add_argument("--conf", default=None, type=float, help="test conf")
     parser.add_argument("--nms", default=None, type=float, help="test nms threshold")
     parser.add_argument("--tsize", default=None, type=int, help="test img size")
-    parser.add_argument("--seed", default=None, type=int, help="eval seed")
+    parser.add_argument("--seed", default=123, type=int, help="eval seed")
     parser.add_argument(
         "--fp16",
         dest="fp16",
@@ -132,10 +132,10 @@ def main(exp, args, num_gpu):
 
     file_name = os.path.join(exp.output_dir, args.experiment_name)
 
-    if rank == 0:
-        os.makedirs(file_name, exist_ok=True)
+    # if rank == 0:
+    #     os.makedirs(file_name, exist_ok=True)
 
-    setup_logger(file_name, distributed_rank=rank, filename="val_log.txt", mode="a")
+    # setup_logger(file_name, distributed_rank=rank, filename="val_log.txt", mode="a")
     logger.info("Args: {}".format(args))
 
     if args.conf is not None:
@@ -146,8 +146,8 @@ def main(exp, args, num_gpu):
         exp.test_size = (args.tsize, args.tsize)
 
     model = exp.get_model()
-    logger.info("Model Summary: {}".format(get_model_info(model, exp.test_size)))
-    logger.info("Model Structure:\n{}".format(str(model)))
+    # logger.info("Model Summary: {}".format(get_model_info(model, exp.test_size)))
+    # logger.info("Model Structure:\n{}".format(str(model)))
 
     evaluator = exp.get_evaluator(args.batch_size, is_distributed, args.test, args.legacy)
     evaluator.per_class_AP = True
