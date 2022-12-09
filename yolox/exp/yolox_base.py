@@ -39,8 +39,8 @@ class Exp(BaseExp):
         # dir of dataset images, if data_dir is None, this project will use `datasets` dir
         self.data_dir = None
         # name of annotation file for training
-        self.train_ann = "/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/SORDI/annotations/sordi-non-single-asserts-train500.json"
-        self.val_ann = "/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/SORDI/annotations/sordi-non-single-asserts-val500.json"
+        self.train_ann = "/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/SORDI/annotations/sordi-non-single-asserts-train5000.json"
+        self.val_ann = "/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/SORDI/annotations/sordi-non-single-asserts-val5000.json"
 
         # self.train_ann = "/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/SORDI/annotations/sordi-single-asserts-train100.json"
         # self.val_ann = "/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/SORDI/annotations/sordi-single-asserts-val100.json"
@@ -51,7 +51,7 @@ class Exp(BaseExp):
         # prob of applying mosaic aug
         self.mosaic_prob = 1.0
         # prob of applying mixup aug
-        self.mixup_prob = 1.0
+        self.mixup_prob = 0.5
         # prob of applying hsv aug
         self.hsv_prob = 1.0
         # prob of applying flip aug
@@ -90,7 +90,7 @@ class Exp(BaseExp):
         self.momentum = 0.9
         # log period in iter, for example,
         # if set to 1, user could see log every iteration.
-        self.print_interval = 100
+        self.print_interval = 1000
         # eval period in epoch, for example,
         # if set to 1, model will be evaluate after every epoch.
         self.eval_interval = 5
