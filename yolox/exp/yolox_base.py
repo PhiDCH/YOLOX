@@ -71,7 +71,7 @@ class Exp(BaseExp):
         # epoch number used for warmup
         self.warmup_epochs = 5
         # max training epoch
-        self.max_epoch = 300
+        self.max_epoch = 50
         # minimum learning rate during warmup
         self.warmup_lr = 0
         self.min_lr_ratio = 0.05
@@ -103,9 +103,11 @@ class Exp(BaseExp):
         # -----------------  testing config ------------------ #
         # output image size during evaluation/test
         self.test_size = (640, 640)
+        ## test size must divided to 64
+        # self.test_size = (1280, 768)
         # confidence threshold during evaluation/test,
         # boxes whose scores are less than test_conf will be filtered
-        self.test_conf = 0.01
+        self.test_conf = 0.50
         # nms threshold
         self.nmsthre = 0.65
 

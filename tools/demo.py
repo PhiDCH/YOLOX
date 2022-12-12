@@ -8,11 +8,12 @@ import time
 from loguru import logger
 
 import cv2
+import numpy as np 
 
 import torch
 
 from yolox.data.data_augment import ValTransform
-from yolox.data.datasets import COCO_CLASSES
+from yolox.data.datasets import COCO_CLASSES, COCO_IDS
 from yolox.exp import get_exp
 from yolox.utils import fuse_model, get_model_info, postprocess, vis
 
@@ -48,7 +49,7 @@ def make_parser():
     parser.add_argument("-c", "--ckpt", default=None, type=str, help="ckpt for eval")
     parser.add_argument(
         "--device",
-        default="cpu",
+        default="gpu",
         type=str,
         help="device to run our model, can either be cpu or gpu",
     )
@@ -241,6 +242,48 @@ def imageflow_demo(predictor, vis_folder, current_time, args):
             break
 
 
+def get_row(detection_id, img_name, size, output, cls_name, cls_id):
+    if output is not None:
+        x0, y0, x1, y1 = np.array(output[:4], np.int64)
+        conf = int(output[4] * output[5] * 100)
+        row = [detection_id, img_name, size[0], size[1], cls_id, cls_name, x0, y0, x1, y1, conf]
+    else:
+        row = [detection_id, img_name, size[0], size[1], 1013, 'l_klt_8210', '', '', '', '', '']
+    return row
+
+
+def submit(predictor):
+    import csv
+    img_fol = "/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/eval/images"
+
+    fields = ['detection_id','image_name','image_width','image_height','object_class_id','object_class_name','bbox_left','bbox_top','bbox_right','bbox_bottom','confidence']
+    with open("/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/submission.csv", 'w') as f:
+        csvwriter = csv.writer(f)
+        csvwriter.writerow(fields)
+        detection_id = 0
+        for i in range(1,218):
+            row = []
+            img_file = f'{i}.jpg'
+            outputs, img_info = predictor.inference(os.path.join(img_fol, img_file))
+            ratio = img_info["ratio"]
+            
+            if outputs[0] is None:
+                row = get_row(detection_id, img_file, (1280,720), None, None, None)
+                csvwriter.writerow(row)
+                detection_id += 1
+            else:
+                outputs = outputs[0].detach().cpu().numpy()
+                for output in outputs:
+                    output[:4] = output[:4]/ratio
+                    cls_name = predictor.cls_names[int(output[6])]
+                    cls_id = COCO_IDS[cls_name]
+                    row = get_row(detection_id, img_file, (1280,720), output, cls_name, cls_id)
+                    csvwriter.writerow(row)
+                    detection_id += 1
+                    
+            # break
+
+
 def main(exp, args):
     if not args.experiment_name:
         args.experiment_name = exp.exp_name
@@ -258,12 +301,12 @@ def main(exp, args):
 
     logger.info("Args: {}".format(args))
 
-    if args.conf is not None:
-        exp.test_conf = args.conf
-    if args.nms is not None:
-        exp.nmsthre = args.nms
-    if args.tsize is not None:
-        exp.test_size = (args.tsize, args.tsize)
+    # if args.conf is not None:
+    #     exp.test_conf = args.conf
+    # if args.nms is not None:
+    #     exp.nmsthre = args.nms
+    # if args.tsize is not None:
+    #     exp.test_size = (args.tsize, args.tsize)
 
     model = exp.get_model()
     logger.info("Model Summary: {}".format(get_model_info(model, exp.test_size)))
@@ -311,7 +354,8 @@ def main(exp, args):
         image_demo(predictor, vis_folder, args.path, current_time, args.save_result)
     elif args.demo == "video" or args.demo == "webcam":
         imageflow_demo(predictor, vis_folder, current_time, args)
-
+    elif args.demo == "submit":
+        submit(predictor)
 
 if __name__ == "__main__":
     args = make_parser().parse_args()

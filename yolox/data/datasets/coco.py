@@ -63,7 +63,6 @@ class COCODataset(Dataset):
         self.json_file = json_file
 
         self.coco = COCO(os.path.join(self.data_dir, "annotations", self.json_file))
-        # self.coco = COCO(os.path.join(self.data_dir, "annotations", 'annot-single-asserts.json'))
         remove_useless_info(self.coco)
         self.ids = self.coco.getImgIds()
         self.class_ids = sorted(self.coco.getCatIds())
