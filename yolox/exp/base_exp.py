@@ -19,8 +19,8 @@ class BaseExp(metaclass=ABCMeta):
 
     def __init__(self):
         self.seed = 123
-        self.output_dir = "./YOLOX_outputs"
-        self.print_interval = 1000
+        self.output_dir = "./stage2_output"
+        self.print_interval = 5
         self.eval_interval = 5
 
     @abstractmethod

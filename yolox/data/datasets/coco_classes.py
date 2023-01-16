@@ -86,18 +86,20 @@
 # )
 
 
-from pycocotools.coco import COCO
-coco = COCO("/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/SORDI/annotations/sordi-single-asserts-val100.json")
-class_id = sorted(coco.getCatIds())
-cats = coco.loadCats(coco.getCatIds())
-cat_dict = {}
-COCO_IDS = {}
-for c in cats:
-    cat_dict[c['id']] = c['name']
-    COCO_IDS[c['name']] = c['id']
+# from pycocotools.coco import COCO
+# coco = COCO("/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/SORDI/annotations/sordi-single-asserts-val100.json")
+# class_id = sorted(coco.getCatIds())
+# cats = coco.loadCats(coco.getCatIds())
+# cat_dict = {}
+# COCO_IDS = {}
+# for c in cats:
+#     cat_dict[c['id']] = c['name']
+#     COCO_IDS[c['name']] = c['id']
     
-COCO_CLASSES = tuple([cat_dict[id] for id in class_id])
+# COCO_CLASSES = tuple([cat_dict[id] for id in class_id])
 
-# print(COCO_IDS)
 
-# COCO_CLASSES = ('stillage_close', 'stillage_open', 'l_klt_4147', 'l_klt_6147', 'l_klt_8210', 'locker', 'cabinet', 'cardboard_box', 'pallet', 'dolly', 'jack', 'spring_post', 'bicycle', 'forklift', 'str', 'exit_sign', 'fire_extinguisher')
+
+
+COCO_CLASSES = ("klt_box_empty")
+COCO_IDS = {"klt_box_empty": 1008}

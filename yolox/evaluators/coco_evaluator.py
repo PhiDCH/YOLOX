@@ -257,24 +257,25 @@ class COCOEvaluator:
 
         annType = ["segm", "bbox", "keypoints"]
 
-        inference_time = statistics[0].item()
-        nms_time = statistics[1].item()
-        n_samples = statistics[2].item()
+        # inference_time = statistics[0].item()
+        # nms_time = statistics[1].item()
+        # n_samples = statistics[2].item()
 
-        a_infer_time = 1000 * inference_time / (n_samples * self.dataloader.batch_size)
-        a_nms_time = 1000 * nms_time / (n_samples * self.dataloader.batch_size)
+        # a_infer_time = 1000 * inference_time / (n_samples * self.dataloader.batch_size)
+        # a_nms_time = 1000 * nms_time / (n_samples * self.dataloader.batch_size)
 
-        time_info = ", ".join(
-            [
-                "Average {} time: {:.2f} ms".format(k, v)
-                for k, v in zip(
-                    ["forward", "NMS", "inference"],
-                    [a_infer_time, a_nms_time, (a_infer_time + a_nms_time)],
-                )
-            ]
-        )
+        # time_info = ", ".join(
+        #     [
+        #         "Average {} time: {:.2f} ms".format(k, v)
+        #         for k, v in zip(
+        #             ["forward", "NMS", "inference"],
+        #             [a_infer_time, a_nms_time, (a_infer_time + a_nms_time)],
+        #         )
+        #     ]
+        # )
 
-        info = time_info + "\n"
+        # info = time_info + "\n"
+        info = ""
 
         # Evaluate the Dt (detection) json comparing with the ground truth
         if len(data_dict) > 0:

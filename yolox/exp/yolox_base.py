@@ -18,7 +18,7 @@ class Exp(BaseExp):
 
         # ---------------- model config ---------------- #
         # detect classes number of model
-        self.num_classes = 17
+        self.num_classes = 1
         # factor of model depth
         self.depth = 1.00
         # factor of model width
@@ -39,13 +39,14 @@ class Exp(BaseExp):
         # dir of dataset images, if data_dir is None, this project will use `datasets` dir
         self.data_dir = None
         # name of annotation file for training
-        self.train_ann = "/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/SORDI/annotations/sordi-non-single-asserts-train5000.json"
-        self.val_ann = "/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/SORDI/annotations/sordi-non-single-asserts-val5000.json"
+        self.train_ann = "/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/stage2/annotations/train-plant-1008.json"
+        self.val_ann = "/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/stage2/annotations/train-plant-1008.json"
+        # self.val_ann = "/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/stage2/annotations/val-1008.json"
 
         # self.train_ann = "/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/SORDI/annotations/sordi-single-asserts-train100.json"
         # self.val_ann = "/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/SORDI/annotations/sordi-single-asserts-val100.json"
         # name of annotation file for testing
-        self.test_ann = "/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/SORDI/annotations/sordi-non-single-asserts-train500.json"
+        self.test_ann = "/home/robotic/Downloads/phidch_ws/src/bmw-lab/scripts/sordi-2022/data/stage2/annotations/val-1008.json"
 
         # --------------- transform config ----------------- #
         # prob of applying mosaic aug
@@ -71,7 +72,7 @@ class Exp(BaseExp):
         # epoch number used for warmup
         self.warmup_epochs = 5
         # max training epoch
-        self.max_epoch = 50
+        self.max_epoch = 10
         # minimum learning rate during warmup
         self.warmup_lr = 0
         self.min_lr_ratio = 0.05
@@ -90,13 +91,14 @@ class Exp(BaseExp):
         self.momentum = 0.9
         # log period in iter, for example,
         # if set to 1, user could see log every iteration.
-        self.print_interval = 1000
+        self.print_interval = 5
         # eval period in epoch, for example,
         # if set to 1, model will be evaluate after every epoch.
-        self.eval_interval = 5
+        self.eval_interval = 1
         # save history checkpoint or not.
         # If set to False, yolox will only save latest and best ckpt.
-        self.save_history_ckpt = True
+        # self.save_history_ckpt = True
+        self.save_history_ckpt = False
         # name of experiment
         self.exp_name = os.path.split(os.path.realpath(__file__))[1].split(".")[0]
 
